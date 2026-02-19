@@ -1,6 +1,10 @@
 import React from 'react'
+import { useAuth } from '../Context/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 const Header = ({user}) => {
+const {user: authenticatedUser, setIsAuthenticated, cerrarSesion} = useAuth();
+
   return (
     <nav className="navbar bg-primary" data-bs-theme="dark">
   <div className="container-fluid">
@@ -23,9 +27,9 @@ const Header = ({user}) => {
           <a className="nav-link" href="#">Usuarios</a>
         </li>
         <div>
-            <span><i className="fa-solid fa-circle-user" ></i> {user?.name || "Usuario"} </span>
+            <span><i className="fa-solid fa-circle-user" ></i> {authenticatedUser || "Usuario"} </span>
             <hr />
-            <button className="btn btn-danger">Cerrar Sesión</button>
+            <button className="btn btn-danger" onClick={() => cerrarSesion()}>Cerrar Sesión</button>
         </div>
        
       </ul>

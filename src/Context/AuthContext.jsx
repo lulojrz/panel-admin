@@ -13,6 +13,12 @@ export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 
+    const cerrarSesion = () => {
+        setIsAuthenticated(false);
+        navigate('/');
+    }
+
+
 
 
     const handleSubmit = async (e) => {
@@ -81,7 +87,7 @@ export const AuthProvider = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{ user, setUser, password, setPassword, handleSubmit }}>
+        <AuthContext.Provider value={{ user, setUser, password, setPassword, handleSubmit, setIsAuthenticated, isAuthenticated, cerrarSesion}}>
             {children}
         </AuthContext.Provider>
     )
