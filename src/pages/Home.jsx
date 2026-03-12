@@ -1,12 +1,13 @@
 import React from 'react'
 import Header from '../Components/Header'
+import { Link } from 'react-router-dom';
 
 const Home = ({ user }) => {
   return (
     <div>
       <Header user={user} />
       <h1 className="text-center mt-5">Bienvenido al panel de administración {user}</h1>
-      <div className="d-flex justify-content-around mt-5">
+      <div className="d-flex justify-content-around mt-5" style={{flexWrap:"wrap"}}>
         <div className="card" style={{ width: '18rem' }}>
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4mOlD5fERmTu1xIB8CCbCCXVc5m49XdKYcQ&s" className="card-img-top" alt="..." />
             <div className="card-body">
@@ -28,7 +29,7 @@ const Home = ({ user }) => {
             <div className="card-body">
               <h5 className="card-title">Administracion</h5>
               <p className="card-text">Gestionar productos, categorias y mas</p>
-              <a href="/administracion" className="btn btn-primary">Administrar</a>
+              <Link to="/administracion" className="btn btn-primary">Administrar</Link>
             </div>
         </div>
       </div>

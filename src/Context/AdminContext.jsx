@@ -4,77 +4,192 @@ import { useState } from "react";
 const AdminContext = createContext();
 export const AdminProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
-    const[selectedProduct, setSelectedProduct] = useState(null);
+    const [selectedProduct, setSelectedProduct] = useState(null);
     const [detallesProducto, setDetallesProducto] = useState(null);
     const [variantes, setVariantes] = useState([]);
+    const [categorias, setCategorias] = useState([]);
+    
+    
 
-    const obtenerProductos = async()=>{
-        try{
+    const obtenerProductos = async () => {
+        try {
             const response = await fetch('http://localhost:8080/productos');
             const data = await response.json();
             setProducts(data);
         }
-        catch(error){
+        catch (error) {
             console.error("Error al obtener los productos:", error);
         }
     }
-    
-    const obtenerProductoPorId = async(id)=>{
-        try{
+    const agregarProducto = async (producto) => {
+       try {
+            const response = await fetch('http://localhost:8080/productos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(producto)
+            });
+            if (response.ok) {
+                alert("Producto agregado con éxito");
+
+            }
+            else {
+
+                Swal.fire
+                    ({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Los campos son obligatorios'
+                    })
+            }
+        }
+        catch (error) {
+            Swal.fire
+                ({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al agregar el producto'
+                })
+        }
+    }
+
+    const agregarVariante = async (variante) => {
+        try {
+            const response = await fetch('http://localhost:8080/productos/variante', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(variante)
+            });
+            if (response.ok) {
+                alert("Variante agregada con éxito");
+            }
+            else {
+                Swal.fire
+
+                    ({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Los campos son obligatorios'
+                    })
+            }
+        }
+        catch (error) {
+            Swal.fire
+                ({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al agregar la variante'
+                })
+        }
+     }
+
+    const obtenerProductoPorId = async (id) => {
+        try {
             const response = await fetch(`http://localhost:8080/productos/${id}`);
             const data = await response.json();
-            
-             setVariantes(data);
-        
-           
+
+            setVariantes(data);
+
+
         }
-        catch(error){
+        catch (error) {
             console.error("Error al obtener el producto por ID:", error);
             return null;
         }
-      }
+    }
 
 
-    const actualizarProducto = async(id) => {
-        try{
+    const actualizarProducto = async (id) => {
+        try {
             const response = await fetch(`http://localhost:8080/productos/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(selectedProduct )
+                body: JSON.stringify(selectedProduct)
             });
-            if(response.ok){
+            if (response.ok) {
                 alert("Producto actualizado con éxito");
-                obtenerProductos(); 
-            }else{
-                 Swal.fire
-                                ({
-                                    icon: 'error',
-                                    title: 'Error',
-                                    text: 'Los campos son obligatorios'
-                                })
+                obtenerProductos();
+            } else {
+                Swal.fire
+                    ({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Los campos son obligatorios'
+                    })
             }
 
         }
-        catch(error){
-             Swal.fire
-                            ({
-                                icon: 'error',
-                                title: 'Error',
-                                text: 'Error al actualizar el producto'
-                            })
+        catch (error) {
+            Swal.fire
+                ({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al actualizar el producto'
+                })
+        }
+    }
+    const actualizarVariante = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:8080/productos/variante/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(variantes.find(v => v.id === id))
+            });
+            if (response.ok) {
+                alert("Variante actualizada con éxito");
+                obtenerProductos();
+            }
+            else {
+
+                Swal.fire
+                    ({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Los campos son obligatorios'
+                    })
+            }
+
+        }
+        catch (error) {
+            Swal.fire
+                ({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al actualizar la variante'
+                })
+        }
+    }
+
+
+    const obtenerCategorias = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/productos/categorias');
+            const data = await response.json();
+            setCategorias(data);
+           
+
+
+        }
+        catch (error) {
+            console.error("Error al obtener las categorias:", error);
         }
     }
 
 
 
 
-  return (
-    <AdminContext.Provider value={{ products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto }}>
-      {children}
-    </AdminContext.Provider>
-  )
+    return (
+        <AdminContext.Provider value={{ products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto, actualizarVariante, categorias, setCategorias, obtenerCategorias, agregarProducto, agregarVariante }}>
+            {children}
+        </AdminContext.Provider>
+    )
 }
 
 export const useAdmin = () => useContext(AdminContext);

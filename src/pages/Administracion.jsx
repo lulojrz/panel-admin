@@ -1,17 +1,28 @@
 import React, { useEffect } from 'react'
 import Header from '../Components/Header'
 import { useAdmin } from '../Context/AdminContext';
+import { Link } from 'react-router-dom';
 
-const Administracion = () => {
-  const { products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto } = useAdmin()
+const Administracion = ({user}) => {
+  const { products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto, actualizarVariante } = useAdmin()
   useEffect(() => {
     obtenerProductos();
   }, []);
+  console.log(user)
 
   return (
     <div>
-      <Header></Header>
+      <Header user={user}></Header>
       <h1 className="text-center mt-5">Administracion</h1>
+      <div className='d-flex justify-content-around mt-5'>
+        
+        <Link to="/nuevos" className="btn btn-success">Agregar Producto</Link>
+        <Link to="/variantes" className="btn btn-success">Agregar Variante</Link>
+      
+        
+      </div>
+
+
       <div className="d-flex justify-content-around mt-5">
         <table className="table">
           <thead>
@@ -21,6 +32,7 @@ const Administracion = () => {
               <th scope="col">Marca</th>
               <th scope="col">Precio</th>
               <th scope="col">Categoria</th>
+              <th scope="col">Activo</th>
               <th scope='col'>Acciones</th>
             </tr>
           </thead>
@@ -33,9 +45,11 @@ const Administracion = () => {
                   <td>{product.marca}</td>
                   <td>${product.precioBase}</td>
                   <td>{product.categoria.nombre}</td>
+                  <td>{product.is_active ? "Sí" : "No"}</td>
                   <td className='d-flex' style={{ display: "flex", justifyContent: "space-between" }}>
                     <button className="btn btn-primary" onClick={() => setSelectedProduct(product)}>Editar</button>
                     <button className='btn btn-secondary' onClick={() => { setSelectedProduct(null); setDetallesProducto(true); obtenerProductoPorId(product.id); }}>Detalles</button>
+                    <button className="btn btn-info ms-2">Desactivar</button>
                     <button className="btn btn-danger ms-2">Eliminar</button>
                   </td>
                 </tr>
@@ -118,7 +132,8 @@ const Administracion = () => {
                 action=""
                 className='mb-3 p-4 border rounded shadow-sm bg-light'
                 id='formulario-edicion'
-                onSubmit={(e) => { }}
+                onSubmit={(e) => { e.preventDefault(); actualizarVariante(variante.id) }}
+                key={variante.id}
               >
                 <h3 className="mb-4 text-primary">Editar Producto</h3>
 
@@ -139,6 +154,18 @@ const Administracion = () => {
                     <p className="form-control-plaintext border-bottom">{variante.sku}</p>
                   </div>
 
+                  <div>
+                    <label htmlFor="precioEspecifico" className="form-label">Precio Especifico</label>
+                    <input type="number" className="form-control" id="precioEspecifico" placeholder="Ingrese el precio específico del producto" name='precioEspecifico' defaultValue={variante.precioEspecifico} onChange={(e) => {
+                      const updatedVariantes = variantes.map(v =>
+                        v.id === variante.id ? { ...v, precioEspecifico: parseFloat(e.target.value) } : v
+                      );
+                      setVariantes(updatedVariantes);
+                    } }/>
+                  </div>
+                  
+                
+
                   <div className="col-12">
                     <label htmlFor="precio" className="form-label fw-bold">Stock </label>
                     <div className="input-group">
@@ -148,7 +175,12 @@ const Administracion = () => {
                         className='form-control'
                         placeholder="0.00"
                         defaultValue={variante.stock}
-                        onChange={(e) => setSelectedVariante({ ...variante, stock: parseInt(e.target.value) })}
+                        onChange={(e) => {
+                          const updatedVariantes = variantes.map(v => 
+                            v.id === variante.id ? { ...v, stock: parseInt(e.target.value) } : v
+                          );
+                          setVariantes(updatedVariantes);
+                        }}
 
                       />
                     </div>
