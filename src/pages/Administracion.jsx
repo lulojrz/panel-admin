@@ -4,11 +4,11 @@ import { useAdmin } from '../Context/AdminContext';
 import { Link } from 'react-router-dom';
 
 const Administracion = ({user}) => {
-  const { products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto, actualizarVariante } = useAdmin()
+  const { products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto, actualizarVariante, dispoProducto } = useAdmin()
   useEffect(() => {
     obtenerProductos();
   }, []);
-  console.log(user)
+
 
   return (
     <div>
@@ -49,7 +49,7 @@ const Administracion = ({user}) => {
                   <td className='d-flex' style={{ display: "flex", justifyContent: "space-between" }}>
                     <button className="btn btn-primary" onClick={() => setSelectedProduct(product)}>Editar</button>
                     <button className='btn btn-secondary' onClick={() => { setSelectedProduct(null); setDetallesProducto(true); obtenerProductoPorId(product.id); }}>Detalles</button>
-                    <button className="btn btn-info ms-2">Desactivar</button>
+                    <button className="btn btn-info ms-2" onClick={() => dispoProducto(product.id)}>{product.is_active ? "Desactivar" : "Activar"}</button>
                     <button className="btn btn-danger ms-2">Eliminar</button>
                   </td>
                 </tr>

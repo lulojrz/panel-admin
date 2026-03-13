@@ -11,10 +11,13 @@ export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
     const [error, setError] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    
 
 
     const cerrarSesion = () => {
         setIsAuthenticated(false);
+        localStorage.removeItem('user');
+        localStorage.removeItem('isAuthenticated');
         navigate('/');
     }
 
@@ -62,8 +65,11 @@ export const AuthProvider = ({ children }) => {
 
                 
             }
-
+            
             setIsAuthenticated(true);
+            localStorage.setItem('user', user);
+            localStorage.setItem('isAuthenticated', 'true');
+
             navigate('/home');
            
 

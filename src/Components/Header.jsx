@@ -28,7 +28,7 @@ const {user,authenticatedUser, setIsAuthenticated, cerrarSesion} = useAuth();
           <a className="nav-link" href="#">Usuarios</a>
         </li>
         <div>
-            <span><i className="fa-solid fa-circle-user" ></i> {user||usuario || "Usuario"} </span>
+            <span><i className="fa-solid fa-circle-user" ></i> {localStorage.getItem('user') || "Usuario"}</span>
             <hr />
             <button className="btn btn-danger" onClick={() => cerrarSesion()}>Cerrar Sesión</button>
         </div>

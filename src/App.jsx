@@ -24,6 +24,7 @@ function App() {
       <Route path='/administracion' element={<Administracion user={user}></Administracion>}/>
       <Route path='/nuevos' element={<AgregarProducto user={user}/>}/>
       <Route path='/variantes' element={<AgregarVariantes user={user}/>}/>
+      <Route path ="/usuarios" element={<Usuarios user={user}/>}/>
 
       
 
