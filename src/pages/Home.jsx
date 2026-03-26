@@ -1,8 +1,18 @@
 import React from 'react'
 import Header from '../Components/Header'
 import { Link } from 'react-router-dom';
+import { useAuth } from '../Context/AuthContext';
+import { useEffect } from 'react';
 
 const Home = ({ user }) => {
+   const {obtenerInformacionUsuario} = useAuth();
+
+   useEffect(() => {
+    obtenerInformacionUsuario(localStorage.getItem('user'));
+   }, [])
+
+
+
   return (
     <div>
       <Header user={user} />

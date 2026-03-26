@@ -9,6 +9,24 @@ export const AdminProvider = ({ children }) => {
     const [detallesProducto, setDetallesProducto] = useState(null);
     const [variantes, setVariantes] = useState([]);
     const [categorias, setCategorias] = useState([]);
+    const [usuarios, setUsuarios] = useState([]);
+     
+    const obtenerUsuarios = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/usuarios');
+            const data = await response.json();
+            setUsuarios(data);
+        }
+        catch (error) {
+            console.error("Error al obtener los usuarios:", error);
+        }
+    }
+
+
+
+
+
+
     
    const dispoProducto = async (id) => {
     const ProductoaDesactivar = products.find(p => p.id === id);
@@ -286,7 +304,7 @@ export const AdminProvider = ({ children }) => {
 
 
     return (
-        <AdminContext.Provider value={{ products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto, actualizarVariante, categorias, setCategorias, obtenerCategorias, agregarProducto, agregarVariante, dispoProducto}}>
+        <AdminContext.Provider value={{ products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto, actualizarVariante, categorias, setCategorias, obtenerCategorias, agregarProducto, agregarVariante, dispoProducto, obtenerUsuarios, usuarios }}>
             {children}
         </AdminContext.Provider>
     )

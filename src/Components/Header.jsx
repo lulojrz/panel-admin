@@ -25,8 +25,8 @@ const {user,authenticatedUser, setIsAuthenticated, cerrarSesion} = useAuth();
           <Link to="/administracion" className="nav-link">Administracion</Link>
         </li>
           <li className="nav-item">
-          <a className="nav-link" href="#">Usuarios</a>
-        </li>
+           <Link to="/usuarios" className="nav-link">Usuarios</Link>
+          </li>
         <div>
             <span><i className="fa-solid fa-circle-user" ></i> {localStorage.getItem('user') || "Usuario"}</span>
             <hr />

@@ -8,7 +8,10 @@ import {  useAuth } from './Context/AuthContext';
 import Administracion from './pages/Administracion';
 import AgregarProducto from './pages/AgregarProducto';
 import AgregarVariantes from './pages/AgregarVariantes';
-
+import Usuarios from './pages/Usuarios';
+import CambioContraseña from './pages/CambioContraseña';
+import CrearUsuario from './pages/CrearUsuario';
+import Perfil from './pages/Perfil';
 
 
 function App() {
@@ -25,6 +28,9 @@ function App() {
       <Route path='/nuevos' element={<AgregarProducto user={user}/>}/>
       <Route path='/variantes' element={<AgregarVariantes user={user}/>}/>
       <Route path ="/usuarios" element={<Usuarios user={user}/>}/>
+      <Route path='/cambio-contraseña' element={<CambioContraseña user={user}/>}/>
+      <Route path='/crear-usuario' element={<CrearUsuario user={user}/>}/>
+      <Route path='/perfil' element={<Perfil user={user}/>}/>
 
       
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import '/src/App.css'
 import { useAuth } from '../Context/AuthContext'
+import { Link } from 'react-router-dom'
 
 const Login = () => {
     const {user,setUser,password, setPassword, handleSubmit} = useAuth()
@@ -29,7 +30,7 @@ const Login = () => {
                                             </div>
                                           
                                             <div className="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a className="small" href="password.html">Forgot Password?</a>
+                                                <Link to="/cambio-contraseña">Olvide mi contraseña</Link>
                                                 <button className="btn btn-primary" type="submit">Entrar</button>
                                             </div>
                                         </form>
