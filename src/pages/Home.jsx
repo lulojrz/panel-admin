@@ -4,12 +4,16 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../Context/AuthContext';
 import { useEffect } from 'react';
 
-const Home = ({ user }) => {
-   const {obtenerInformacionUsuario} = useAuth();
+const Home = ({  }) => {
+   const {obtenerInformacionUsuario, setInfoUsuario, user, infoUsuario} = useAuth();
 
    useEffect(() => {
     obtenerInformacionUsuario(localStorage.getItem('user'));
    }, [])
+
+
+
+
 
 
 

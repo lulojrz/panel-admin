@@ -10,7 +10,7 @@ export const AdminProvider = ({ children }) => {
     const [variantes, setVariantes] = useState([]);
     const [categorias, setCategorias] = useState([]);
     const [usuarios, setUsuarios] = useState([]);
-     
+
     const obtenerUsuarios = async () => {
         try {
             const response = await fetch('http://localhost:8080/api/usuarios');
@@ -27,100 +27,100 @@ export const AdminProvider = ({ children }) => {
 
 
 
-    
-   const dispoProducto = async (id) => {
-    const ProductoaDesactivar = products.find(p => p.id === id);
-    
-    if (ProductoaDesactivar) {
-        if (ProductoaDesactivar.is_active) {
-        
-        const productoActualizado = { ...ProductoaDesactivar, is_active: false };
-        
-        
-        setSelectedProduct(productoActualizado); 
-          
-        try {
-            const response = await fetch(`http://localhost:8080/productos/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-             
-                body: JSON.stringify(productoActualizado) 
-            });
 
-            if (response.ok) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Desactivado',
-                    text: 'Producto desactivado con éxito'
-                });
-                obtenerProductos();
+    const dispoProducto = async (id) => {
+        const ProductoaDesactivar = products.find(p => p.id === id);
+
+        if (ProductoaDesactivar) {
+            if (ProductoaDesactivar.is_active) {
+
+                const productoActualizado = { ...ProductoaDesactivar, is_active: false };
+
+
+                setSelectedProduct(productoActualizado);
+
+                try {
+                    const response = await fetch(`http://localhost:8080/productos/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+
+                        body: JSON.stringify(productoActualizado)
+                    });
+
+                    if (response.ok) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Desactivado',
+                            text: 'Producto desactivado con éxito'
+                        });
+                        obtenerProductos();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'No se pudo realizar la acción'
+                        });
+                    }
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error al conectar con el servidor'
+                    });
+                }
+
             } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'No se pudo realizar la acción'
-                });
-            }
-        } catch (error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Error al conectar con el servidor'
-            });
-        }
-       
-    } else {
-        const productoActualizado = { ...ProductoaDesactivar, is_active: true };
-        setSelectedProduct(productoActualizado);
-        try {
-            const response = await fetch(`http://localhost:8080/productos/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(productoActualizado) 
-            });
-             if (response.ok) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Activado',
-                    text: 'Producto activado con éxito'
-                });
-                obtenerProductos();
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'No se pudo realizar la acción'
-                });
-            }
+                const productoActualizado = { ...ProductoaDesactivar, is_active: true };
+                setSelectedProduct(productoActualizado);
+                try {
+                    const response = await fetch(`http://localhost:8080/productos/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(productoActualizado)
+                    });
+                    if (response.ok) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Activado',
+                            text: 'Producto activado con éxito'
+                        });
+                        obtenerProductos();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'No se pudo realizar la acción'
+                        });
+                    }
 
 
+
+
+
+
+                }
+                catch (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error al conectar con el servidor'
+                    });
+                }
+            }
 
 
 
 
         }
-        catch (error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Error al conectar con el servidor'
-            });
-        }   
-         }
 
 
 
+    }
 
-}
-
-
-
-}
-   
 
 
 
@@ -138,7 +138,7 @@ export const AdminProvider = ({ children }) => {
         }
     }
     const agregarProducto = async (producto) => {
-       try {
+        try {
             const response = await fetch('http://localhost:8080/productos', {
                 method: 'POST',
                 headers: {
@@ -200,7 +200,7 @@ export const AdminProvider = ({ children }) => {
                     text: 'Error al agregar la variante'
                 })
         }
-     }
+    }
 
     const obtenerProductoPorId = async (id) => {
         try {
@@ -291,7 +291,7 @@ export const AdminProvider = ({ children }) => {
             const response = await fetch('http://localhost:8080/productos/categorias');
             const data = await response.json();
             setCategorias(data);
-           
+
 
 
         }

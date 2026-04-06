@@ -12,7 +12,10 @@ export const AuthProvider = ({ children }) => {
     const [rol, setRol] = useState("");
     const navigate = useNavigate();
     const [error, setError] = useState("");
-    const [isAuthenticated, setIsAuthenticated] = useState(false);  
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [permiso, setPermiso] = useState(false);
+    const [password1, setPassword1] = useState("");
+    const [password2, setPassword2] = useState("");
 
 
     const cerrarSesion = () => {
@@ -33,22 +36,14 @@ export const AuthProvider = ({ children }) => {
             });
             const data_usuarios = await response.json();
             setInfoUsuario(data_usuarios);
-            
-            if (response.ok) {
-                setRol(data_usuarios.rol);
-                localStorage.setItem('rol', data_usuarios.rol);
-                
-            } else {
-                setError("Error al obtener el rol");
-                Swal.fire
-                    ({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Error al obtener el rol'
-                    });
-            }
 
-  
+
+
+            setRol(data_usuarios.rol);
+            localStorage.setItem('rol', data_usuarios.rol);
+
+
+
         } catch (error) {
             setError("Error al obtener el rol");
             Swal.fire
@@ -63,14 +58,104 @@ export const AuthProvider = ({ children }) => {
 
 
     }
-   
-        
+
+
+    const verificarPassword = async (id, passwordInput) => {
+       
+
+        if (!id) return;
+
+        try {
+            const response = await fetch(`http://localhost:8080/api/verificacion/${id}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: passwordInput })
+            });
+       
+            const resultado = await response.text();
+
+            if (resultado === "exito") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Contraseña verificada',
+                    text: 'La contraseña es correcta. Ahora puedes cambiarla.'
+                });
+                setPermiso(true); 
+            } else {
+                
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'La contraseña actual es incorrecta.'
+                });
+                setPermiso(false);
+            }
 
 
 
-     const handleSubmit = async (e) => {
+
+        }
+        catch (error) {
+            console.error("Error en la verificación de contraseña:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Error en la verificación de contraseña'
+            });
+        }
+
+
+
+    }
+
+    const editarUsuario = async (id, body) => {
+        console.log(body);
+
+        try {
+            const url = `http://localhost:8080/api/editar/usuario/${id}`;
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+
+            if (response.ok) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Contraseña actualizada',
+                    text: 'La contraseña ha sido actualizada correctamente.'
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudo actualizar la contraseña.'
+                });
+            }
+
+
+        }
+        catch (error) {
+            console.error("Error en la petición:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de conexión',
+                text: 'No se pudo conectar con el servidor.'
+            });
+        }
+
+
+
+    }
+
+
+
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-   
+
         if (!user || !password) {
             setError("Los campos son obligatorios");
             Swal.fire
@@ -79,19 +164,20 @@ export const AuthProvider = ({ children }) => {
                     title: 'Error',
                     text: 'Los campos son obligatorios'
                 })
-       
+
 
             return;
         }
 
 
-    
+
 
 
         try {
             const response = await fetch('http://localhost:8080/api/login', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'
+                headers: {
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ usuario: user, password: password })
             })
@@ -107,34 +193,35 @@ export const AuthProvider = ({ children }) => {
                     })
                 return;
 
-                
+
             }
-            
+
             setIsAuthenticated(true);
             localStorage.setItem('user', user);
             localStorage.setItem('isAuthenticated', 'true');
 
             navigate('/home');
-           
+
 
         }
         catch (error) {
             setError("Error en la autenticación");
             Swal.fire
-                    ({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Error en la autenticación'
-                    })
+                ({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error en la autenticación'
+                })
             alert(error)
             return;
-        }}
+        }
+    }
 
 
-         
+
 
     return (
-        <AuthContext.Provider value={{ user, setUser, password, setPassword, handleSubmit, setIsAuthenticated, isAuthenticated, cerrarSesion , rol, setRol, obtenerInformacionUsuario, infoUsuario }}>
+        <AuthContext.Provider value={{ user, setUser, password, setPassword, handleSubmit, setIsAuthenticated, isAuthenticated, cerrarSesion, rol, setRol, obtenerInformacionUsuario, infoUsuario, setInfoUsuario, verificarPassword, permiso, setPermiso, password1, setPassword1, password2, setPassword2, editarUsuario }}>
             {children}
         </AuthContext.Provider>
     )
@@ -143,4 +230,3 @@ export const AuthProvider = ({ children }) => {
 
 
 export const useAuth = () => useContext(AuthContext);
-           
