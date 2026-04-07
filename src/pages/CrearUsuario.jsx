@@ -3,6 +3,8 @@ import Header from '../Components/Header'
 import { useAuth } from '../Context/AuthContext';
 
 const CrearUsuario = () => {
+
+    const { crearUsuario } = useAuth();
     const [usuarioNuevo, setUsuarioNuevo] = useState({
         usuario: "",
         password: "",
@@ -14,7 +16,8 @@ const CrearUsuario = () => {
     })
     const handleCrearUsuario = async (e) => {
         e.preventDefault();
-        console.log("Datos del nuevo usuario:", usuarioNuevo);
+        await crearUsuario(usuarioNuevo);
+        
 
     }
     const handleUsuario = (e) => {

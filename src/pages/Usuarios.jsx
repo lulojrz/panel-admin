@@ -8,7 +8,7 @@ import { useAdmin } from '../Context/AdminContext';
 
 const Usuarios = () => {
 
-  const { infoUsuario, setUser, setInfoUsuario } = useAuth();
+  const { infoUsuario, setUser, setInfoUsuario, eliminarUsuario } = useAuth();
   const { usuarios, obtenerUsuarios } = useAdmin();
 
 
@@ -25,7 +25,7 @@ const Usuarios = () => {
     }
   }, [usuarios]);
 
- 
+
 
 
 
@@ -69,7 +69,35 @@ const Usuarios = () => {
                 <td>
                   {
                     localStorage.getItem('rol') === 'admin' ? (
-                      <button className="btn btn-danger btn-sm" disabled={esUsuarioActual}>Eliminar</button>) : "No tienes permisos"
+                      <>
+                        <button key={user.id} data-bs-toggle="modal" data-bs-target={`#eliminarModal-${user.id}`} className="btn btn-danger btn-sm" disabled={esUsuarioActual} >
+                          Eliminar</button>
+
+                        <div className="modal fade" id={`eliminarModal-${user.id}`} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div className="modal-dialog">
+                            <div className="modal-content">
+                              <div className="modal-header">
+                                <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div className="modal-body">
+                                ¿Esta seguro que desea eliminar al siguiente usuario? <br />
+                                Usuario: {user.usuario} <br />
+                                Nombre: {user.nombre} <br />
+                                Apellido: {user.apellido} <br />
+                                Rol: {user.rol}
+                              </div>
+                              <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" className="btn btn-danger" onClick={() => eliminarUsuario(user.id)}>Eliminar</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </>
+
+                    ) : "No tienes permisos"
                   }
 
                 </td>

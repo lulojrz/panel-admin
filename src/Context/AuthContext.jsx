@@ -26,6 +26,42 @@ export const AuthProvider = ({ children }) => {
         navigate('/');
     }
 
+    const crearUsuario= async (usuarioNuevo) => {
+      try{
+        const response = await fetch("http://localhost:8080/api/registro",
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(usuarioNuevo)
+            }
+        )
+        if (response.ok) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Usuario creado',
+                text: 'El usuario ha sido creado exitosamente.'
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'No se pudo crear el usuario.'
+            });
+        }
+
+      }
+        catch(error){
+            console.error("Error en la creación de usuario:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de conexión',
+                text: 'No se pudo conectar con el servidor.'
+            });
+        }
+    }
+
+
+
 
 
     const obtenerInformacionUsuario = async (usuario) => {
@@ -218,10 +254,45 @@ export const AuthProvider = ({ children }) => {
     }
 
 
+    const eliminarUsuario = async (id) => {
+        try {
+            const response = await fetch (`http://localhost:8080/api/eliminar/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
 
+            if (response.ok) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Usuario eliminado',
+                    text: 'El usuario ha sido eliminado correctamente.'
+                });
+
+                setTimeout(() => {
+                   navigate(0);  
+                }, 2000);
+               
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudo eliminar el usuario.'
+                });
+            }
+        } catch (error) {
+            console.error("Error en la petición:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de conexión',
+                text: 'No se pudo conectar con el servidor.'
+            });
+        }
+    };
 
     return (
-        <AuthContext.Provider value={{ user, setUser, password, setPassword, handleSubmit, setIsAuthenticated, isAuthenticated, cerrarSesion, rol, setRol, obtenerInformacionUsuario, infoUsuario, setInfoUsuario, verificarPassword, permiso, setPermiso, password1, setPassword1, password2, setPassword2, editarUsuario }}>
+        <AuthContext.Provider value={{ user, setUser, password, setPassword, handleSubmit, setIsAuthenticated, isAuthenticated, cerrarSesion, rol, setRol, obtenerInformacionUsuario, infoUsuario, setInfoUsuario, verificarPassword, permiso, setPermiso, password1, setPassword1, password2, setPassword2, editarUsuario, crearUsuario, eliminarUsuario }}>
             {children}
         </AuthContext.Provider>
     )
