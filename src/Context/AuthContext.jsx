@@ -23,6 +23,8 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('user');
         localStorage.removeItem('isAuthenticated');
         localStorage.removeItem('rol');
+        localStorage.removeItem('infoUsuario');
+        localStorage.removeItem('isAuth');
         navigate('/');
     }
 
