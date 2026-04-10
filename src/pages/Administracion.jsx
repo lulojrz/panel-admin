@@ -4,7 +4,7 @@ import { useAdmin } from '../Context/AdminContext';
 import { Link } from 'react-router-dom';
 
 const Administracion = ({user}) => {
-  const { products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto, actualizarVariante, dispoProducto } = useAdmin()
+  const { products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto, actualizarVariante, dispoProducto, dispoPortada } = useAdmin()
   useEffect(() => {
     obtenerProductos();
   }, []);
@@ -33,6 +33,7 @@ const Administracion = ({user}) => {
               <th scope="col">Precio</th>
               <th scope="col">Categoria</th>
               <th scope="col">Activo</th>
+              <th scope="col">Portada</th>
               <th scope='col'>Acciones</th>
             </tr>
           </thead>
@@ -46,10 +47,12 @@ const Administracion = ({user}) => {
                   <td>${product.precioBase}</td>
                   <td>{product.categoria.nombre}</td>
                   <td>{product.is_active ? "Sí" : "No"}</td>
+                  <td>{product.portada ? "Sí" : "No"}</td>
                   <td className='d-flex' style={{ display: "flex", justifyContent: "space-between" }}>
                     <button className="btn btn-primary" onClick={() => setSelectedProduct(product)}>Editar</button>
                     <button className='btn btn-secondary' onClick={() => { setSelectedProduct(null); setDetallesProducto(true); obtenerProductoPorId(product.id); }}>Detalles</button>
                     <button className="btn btn-info ms-2" onClick={() => dispoProducto(product.id)}>{product.is_active ? "Desactivar" : "Activar"}</button>
+                    <button className="btn btn-warning ms-2" onClick={() => dispoPortada(product.id)}>{product.portada?"Desactivar Portada":"Activar Portada"}</button>
                     <button className="btn btn-danger ms-2">Eliminar</button>
                   </td>
                 </tr>

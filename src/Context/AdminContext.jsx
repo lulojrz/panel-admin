@@ -25,102 +25,90 @@ export const AdminProvider = ({ children }) => {
 
 
 
+const dispoProducto = async (id) => {
+    
+    const productoAEditar = products.find(p => p.id === id);
+    
+    if (!productoAEditar) return;
 
+  
+    const nuevoEstadoActive = !productoAEditar.is_active;
+    const productoActualizado = { ...productoAEditar, is_active: nuevoEstadoActive };
 
+   
+    setSelectedProduct(productoActualizado);
 
-    const dispoProducto = async (id) => {
-        const ProductoaDesactivar = products.find(p => p.id === id);
+    try {
+       
+        const response = await fetch(`http://localhost:8080/productos/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(productoActualizado)
+        });
 
-        if (ProductoaDesactivar) {
-            if (ProductoaDesactivar.is_active) {
+        if (!response.ok) throw new Error("Error en el servidor");
 
-                const productoActualizado = { ...ProductoaDesactivar, is_active: false };
+       
+        Swal.fire({
+            icon: 'success',
+            title: nuevoEstadoActive ? 'Producto Activado' : 'Producto Desactivado',
+            text: `El producto ahora está ${nuevoEstadoActive ? 'visible' : 'oculto'} para los clientes.`,
+            timer: 1500,
+            showConfirmButton: false
+        });
 
+      
+        await obtenerProductos();
 
-                setSelectedProduct(productoActualizado);
-
-                try {
-                    const response = await fetch(`http://localhost:8080/productos/${id}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-
-                        body: JSON.stringify(productoActualizado)
-                    });
-
-                    if (response.ok) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Desactivado',
-                            text: 'Producto desactivado con éxito'
-                        });
-                        obtenerProductos();
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'No se pudo realizar la acción'
-                        });
-                    }
-                } catch (error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Error al conectar con el servidor'
-                    });
-                }
-
-            } else {
-                const productoActualizado = { ...ProductoaDesactivar, is_active: true };
-                setSelectedProduct(productoActualizado);
-                try {
-                    const response = await fetch(`http://localhost:8080/productos/${id}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(productoActualizado)
-                    });
-                    if (response.ok) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Activado',
-                            text: 'Producto activado con éxito'
-                        });
-                        obtenerProductos();
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'No se pudo realizar la acción'
-                        });
-                    }
-
-
-
-
-
-
-                }
-                catch (error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Error al conectar con el servidor'
-                    });
-                }
-            }
-
-
-
-
-        }
-
-
-
+    } catch (error) {
+        console.error("Error al cambiar disponibilidad:", error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error de conexión',
+            text: 'No se pudo actualizar el estado del producto.'
+        });
     }
+};
 
+    const dispoPortada = async (id) => {
+        const ProductoaCambiar = products.find(p => p.id === id);
+
+        if (!ProductoaCambiar) return;
+
+
+        const productoActualizado = {
+            ...ProductoaCambiar,
+            portada: !ProductoaCambiar.portada
+        };
+
+        try {
+
+            const response = await fetch(`http://localhost:8080/productos/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(productoActualizado)
+            });
+
+            if (response.ok) {
+                Swal.fire({
+                    icon: 'success',
+                    title: productoActualizado.portada ? 'Activado' : 'Desactivado',
+                    text: `Portada ${productoActualizado.portada ? 'activada' : 'desactivada'} con éxito`
+                });
+
+
+                obtenerProductos();
+            } else {
+                throw new Error("Error en la respuesta del servidor");
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'No se pudo conectar con el servidor'
+            });
+        }
+    };
 
 
 
@@ -304,7 +292,7 @@ export const AdminProvider = ({ children }) => {
 
 
     return (
-        <AdminContext.Provider value={{ products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto, actualizarVariante, categorias, setCategorias, obtenerCategorias, agregarProducto, agregarVariante, dispoProducto, obtenerUsuarios, usuarios }}>
+        <AdminContext.Provider value={{ products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto, actualizarVariante, categorias, setCategorias, obtenerCategorias, agregarProducto, agregarVariante, dispoProducto, obtenerUsuarios, usuarios, setUsuarios, dispoPortada }}>
             {children}
         </AdminContext.Provider>
     )
