@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
     const [permiso, setPermiso] = useState(false);
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
+    const [email,setEmail] = useState("");
 
 
     const cerrarSesion = () => {
@@ -27,6 +28,28 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('isAuth');
         navigate('/');
     }
+
+
+    const encontrarUsuario = async (usuario) => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/find/usuarios`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario: usuario })
+            });
+            const data_usuarios = await response.json();
+            setEmail(data_usuarios.email);
+            setUser(data_usuarios.usuario);
+        } catch (error) {
+            console.error("Error al encontrar el usuario:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Error al encontrar el usuario'
+            });
+        }
+    }
+
 
     const crearUsuario= async (usuarioNuevo) => {
       try{
@@ -294,7 +317,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, setUser, password, setPassword, handleSubmit, setIsAuthenticated, isAuthenticated, cerrarSesion, rol, setRol, obtenerInformacionUsuario, infoUsuario, setInfoUsuario, verificarPassword, permiso, setPermiso, password1, setPassword1, password2, setPassword2, editarUsuario, crearUsuario, eliminarUsuario }}>
+        <AuthContext.Provider value={{ user, setUser, password, setPassword, handleSubmit, setIsAuthenticated, isAuthenticated, cerrarSesion, rol, setRol, obtenerInformacionUsuario, infoUsuario, setInfoUsuario, verificarPassword, permiso, setPermiso, password1, setPassword1, password2, setPassword2, editarUsuario, crearUsuario, eliminarUsuario, encontrarUsuario, email, setEmail }}>
             {children}
         </AuthContext.Provider>
     )
