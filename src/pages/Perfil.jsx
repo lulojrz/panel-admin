@@ -28,14 +28,17 @@ const Perfil = () => {
 
   useEffect(() => {
     const cargarDatos = async () => {
-      // Solo pedimos la lista si está vacía
+     
       if (usuarios.length === 0) {
         await obtenerUsuarios();
       }
 
       const localUser = localStorage.getItem('user');
+     
       if (localUser) {
         const encontrado = usuarios.find(u => u.usuario === localUser);
+       
+        
         if (encontrado && (!infoUsuario || infoUsuario.usuario !== encontrado.usuario)) {
           setInfoUsuario(encontrado);
           setUsuarioActual(encontrado);
@@ -52,6 +55,8 @@ const handleGuardarCambios = async (e) => {
    
     if (!usuarioActual.nombre || !usuarioActual.email) {
         Swal.fire("Error", "Los datos del usuario no se han cargado correctamente.", "warning");
+        console.log("Usuario actual:", usuarioActual);
+
         return;
     }
     if (permiso && pass1 !== pass2) {

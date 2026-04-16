@@ -91,17 +91,21 @@ export const AuthProvider = ({ children }) => {
 
     const obtenerInformacionUsuario = async (usuario) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/find/usuarios?usuario=${usuario}`, {
-                method: 'GET',
+            const response = await fetch(`http://localhost:8080/api/find/usuarios`, {
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario: usuario })
             });
             const data_usuarios = await response.json();
             setInfoUsuario(data_usuarios);
 
 
 
+
             setRol(data_usuarios.rol);
+    
             localStorage.setItem('rol', data_usuarios.rol);
+
 
 
 
@@ -260,6 +264,7 @@ export const AuthProvider = ({ children }) => {
             setIsAuthenticated(true);
             localStorage.setItem('user', user);
             localStorage.setItem('isAuthenticated', 'true');
+          
 
             navigate('/home');
 
