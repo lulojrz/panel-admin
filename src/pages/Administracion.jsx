@@ -4,7 +4,7 @@ import { useAdmin } from '../Context/AdminContext';
 import { Link } from 'react-router-dom';
 
 const Administracion = ({user}) => {
-  const { products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto, actualizarVariante, dispoProducto, dispoPortada } = useAdmin()
+  const { products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto, actualizarVariante, dispoProducto, dispoPortada, eliminarUsuario } = useAdmin()
   useEffect(() => {
     obtenerProductos();
   }, []);
@@ -53,7 +53,7 @@ const Administracion = ({user}) => {
                     <button className='btn btn-secondary' onClick={() => { setSelectedProduct(null); setDetallesProducto(true); obtenerProductoPorId(product.id); }}>Detalles</button>
                     <button className="btn btn-info ms-2" onClick={() => dispoProducto(product.id)}>{product.is_active ? "Desactivar" : "Activar"}</button>
                     <button className="btn btn-warning ms-2" onClick={() => dispoPortada(product.id)}>{product.portada?"Desactivar Portada":"Activar Portada"}</button>
-                    <button className="btn btn-danger ms-2">Eliminar</button>
+                    <button className="btn btn-danger ms-2" onClick={()=> eliminarUsuario(product.id)}>Eliminar</button>
                   </td>
                 </tr>
               ))}
