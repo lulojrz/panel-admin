@@ -245,7 +245,10 @@ export const AuthProvider = ({ children }) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ usuario: user, password: password })
+
             })
+            const data = await response.json();
+           
 
 
             if (!response.ok) {
@@ -260,8 +263,10 @@ export const AuthProvider = ({ children }) => {
 
 
             }
-
+            
             setIsAuthenticated(true);
+            localStorage.setItem("token", data.token);
+            
             localStorage.setItem('user', user);
             localStorage.setItem('isAuthenticated', 'true');
           

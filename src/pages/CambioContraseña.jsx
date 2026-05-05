@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react'; // Eliminamos 'use' 
 import { useAuth } from '../Context/AuthContext';
 import emailjs from '@emailjs/browser';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const CambioContraseña = () => {
   const form = useRef();
@@ -49,6 +50,8 @@ const CambioContraseña = () => {
   }, [email, cargando]); 
 
   return (
+    <>
+    <Link to="/">Volver al Inicio</Link>
     <form style={{ width: "50%", margin: "0 auto", marginTop: "5rem" }} ref={form} onSubmit={sendEmail}>
       
         <h2 className="mb-4 text-center">Recuperar Contraseña</h2>
@@ -65,6 +68,7 @@ const CambioContraseña = () => {
         {cargando ? 'Buscando y enviando...' : 'Recuperar Contraseña'}
       </button>
     </form>
+    </>
   );
 };
 
