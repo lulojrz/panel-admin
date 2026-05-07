@@ -35,7 +35,7 @@ const Usuarios = () => {
     <>
       <Header></Header>
       <div className="d-flex justify-content-between align-items-center mt-4">
-        {localStorage.getItem('rol') === 'admin' && (
+        {localStorage.getItem('rol') === 'ADMIN' && (
           <Link to="/crear-usuario" className="btn btn-primary">Agregar Usuario</Link>
         )
         }
@@ -53,7 +53,8 @@ const Usuarios = () => {
         </thead>
         <tbody>
 
-          {usuarios.map((user) => {
+          {localStorage.getItem('rol') === 'ADMIN' ? (
+          usuarios.map((user) => {
             const esUsuarioActual = user.usuario === localStorage.getItem('user');
 
             return (
@@ -68,7 +69,7 @@ const Usuarios = () => {
                 <td>{user.rol}</td>
                 <td>
                   {
-                    localStorage.getItem('rol') === 'admin' ? (
+                    localStorage.getItem('rol') === 'ADMIN' ? (
                       <>
                         <button key={user.id} data-bs-toggle="modal" data-bs-target={`#eliminarModal-${user.id}`} className="btn btn-danger btn-sm" disabled={esUsuarioActual} >
                           Eliminar</button>
@@ -103,7 +104,12 @@ const Usuarios = () => {
                 </td>
               </tr>
             );
-          })}
+          })) : (
+            <tr>
+              <td colSpan="5" className="text-center" style={{color:"black",textAlign:"center"}}>No tienes permisos para ver esta información</td>
+            </tr>
+          )
+          }
 
 
         </tbody>

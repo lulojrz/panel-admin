@@ -13,8 +13,14 @@ export const AdminProvider = ({ children }) => {
 
     const obtenerUsuarios = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/usuarios');
+            const response = await fetch('http://localhost:8080/api/usuarios',
+                {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') }
+                }
+            );
             const data = await response.json();
+           
             setUsuarios(data);
         }
         catch (error) {
@@ -42,7 +48,7 @@ const dispoProducto = async (id) => {
        
         const response = await fetch(`http://localhost:8080/productos/${id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') },
             body: JSON.stringify(productoActualizado)
         });
 
@@ -85,7 +91,7 @@ const dispoProducto = async (id) => {
 
             const response = await fetch(`http://localhost:8080/productos/${id}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') },
                 body: JSON.stringify(productoActualizado)
             });
 
@@ -192,7 +198,12 @@ const dispoProducto = async (id) => {
 
     const obtenerProductoPorId = async (id) => {
         try {
-            const response = await fetch(`http://localhost:8080/productos/${id}`);
+            const response = await fetch(`http://localhost:8080/productos/${id}`,
+                {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') }
+                }
+            );
             const data = await response.json();
 
             setVariantes(data);
@@ -211,7 +222,8 @@ const dispoProducto = async (id) => {
             const response = await fetch(`http://localhost:8080/productos/${id}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': "Bearer " + localStorage.getItem('token')
                 },
                 body: JSON.stringify(selectedProduct)
             });
@@ -244,7 +256,9 @@ const dispoProducto = async (id) => {
             const response = await fetch(`http://localhost:8080/productos/variante/${id}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': "Bearer " + localStorage.getItem('token')
+
                 },
                 body: JSON.stringify(variantes.find(v => v.id === id))
             });

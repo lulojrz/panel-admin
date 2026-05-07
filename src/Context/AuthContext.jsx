@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }) => {
         const response = await fetch("http://localhost:8080/api/registro",
             {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json' , 'Authorization': "Bearer " + localStorage.getItem('token')},
                 body: JSON.stringify(usuarioNuevo)
             }
         )
@@ -133,7 +133,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const response = await fetch(`http://localhost:8080/api/verificacion/${id}`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') },
                 body: JSON.stringify({ password: passwordInput })
             });
        
@@ -248,6 +248,7 @@ export const AuthProvider = ({ children }) => {
 
             })
             const data = await response.json();
+            localStorage.setItem ("rol", data.rol);
            
 
 
@@ -294,7 +295,8 @@ export const AuthProvider = ({ children }) => {
             const response = await fetch (`http://localhost:8080/api/eliminar/${id}`, {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': "Bearer " + localStorage.getItem('token')
                 }
             });
 

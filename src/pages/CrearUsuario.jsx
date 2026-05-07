@@ -11,7 +11,7 @@ const CrearUsuario = () => {
         nombre: "",
         apellido: "",
         email: "",
-        rol: "user"
+        rol: "EMPLOYEER"
 
     })
     const handleCrearUsuario = async (e) => {
@@ -66,8 +66,9 @@ const CrearUsuario = () => {
                             value={usuarioNuevo.rol} 
                             onChange={handleUsuario}
                         >
-                            <option value="user">User</option>
-                            <option value="admin">Admin</option>
+                            <option value="USER">User</option>
+                            <option value="ADMIN">Admin</option>
+                            <option value="EMPLOYEER">Employee</option>
                         </select>
                     </div>
                     <button type="submit" className="btn btn-primary">Crear Usuario</button>

@@ -52,8 +52,10 @@ const Administracion = ({user}) => {
                     <button className="btn btn-primary" onClick={() => setSelectedProduct(product)}>Editar</button>
                     <button className='btn btn-secondary' onClick={() => { setSelectedProduct(null); setDetallesProducto(true); obtenerProductoPorId(product.id); }}>Detalles</button>
                     <button className="btn btn-info ms-2" onClick={() => dispoProducto(product.id)}>{product.is_active ? "Desactivar" : "Activar"}</button>
-                    <button className="btn btn-warning ms-2" onClick={() => dispoPortada(product.id)}>{product.portada?"Desactivar Portada":"Activar Portada"}</button>
-                    <button className="btn btn-danger ms-2" onClick={()=> eliminarUsuario(product.id)}>Eliminar</button>
+                    {
+                      localStorage.getItem("rol")==="ADMIN" && <button className="btn btn-warning ms-2" onClick={() => dispoPortada(product.id)}>{product.portada ? "Quitar Portada" : "Poner Portada"}</button>
+                    }
+                   
                   </td>
                 </tr>
               ))}
