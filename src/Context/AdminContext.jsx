@@ -20,7 +20,7 @@ export const AdminProvider = ({ children }) => {
                 }
             );
             const data = await response.json();
-           
+
             setUsuarios(data);
         }
         catch (error) {
@@ -31,50 +31,50 @@ export const AdminProvider = ({ children }) => {
 
 
 
-const dispoProducto = async (id) => {
-    
-    const productoAEditar = products.find(p => p.id === id);
-    
-    if (!productoAEditar) return;
+    const dispoProducto = async (id) => {
 
-  
-    const nuevoEstadoActive = !productoAEditar.is_active;
-    const productoActualizado = { ...productoAEditar, is_active: nuevoEstadoActive };
+        const productoAEditar = products.find(p => p.id === id);
 
-   
-    setSelectedProduct(productoActualizado);
+        if (!productoAEditar) return;
 
-    try {
-       
-        const response = await fetch(`http://localhost:8080/productos/${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') },
-            body: JSON.stringify(productoActualizado)
-        });
 
-        if (!response.ok) throw new Error("Error en el servidor");
+        const nuevoEstadoActive = !productoAEditar.is_active;
+        const productoActualizado = { ...productoAEditar, is_active: nuevoEstadoActive };
 
-       
-        Swal.fire({
-            icon: 'success',
-            title: nuevoEstadoActive ? 'Producto Activado' : 'Producto Desactivado',
-            text: `El producto ahora está ${nuevoEstadoActive ? 'visible' : 'oculto'} para los clientes.`,
-            timer: 1500,
-            showConfirmButton: false
-        });
 
-      
-        await obtenerProductos();
+        setSelectedProduct(productoActualizado);
 
-    } catch (error) {
-        console.error("Error al cambiar disponibilidad:", error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Error de conexión',
-            text: 'No se pudo actualizar el estado del producto.'
-        });
-    }
-};
+        try {
+
+            const response = await fetch(`http://localhost:8080/productos/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') },
+                body: JSON.stringify(productoActualizado)
+            });
+
+            if (!response.ok) throw new Error("Error en el servidor");
+
+
+            Swal.fire({
+                icon: 'success',
+                title: nuevoEstadoActive ? 'Producto Activado' : 'Producto Desactivado',
+                text: `El producto ahora está ${nuevoEstadoActive ? 'visible' : 'oculto'} para los clientes.`,
+                timer: 1500,
+                showConfirmButton: false
+            });
+
+
+            await obtenerProductos();
+
+        } catch (error) {
+            console.error("Error al cambiar disponibilidad:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de conexión',
+                text: 'No se pudo actualizar el estado del producto.'
+            });
+        }
+    };
 
     const dispoPortada = async (id) => {
         const ProductoaCambiar = products.find(p => p.id === id);
@@ -136,7 +136,8 @@ const dispoProducto = async (id) => {
             const response = await fetch('http://localhost:8080/productos', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': "Bearer " + localStorage.getItem('token')
                 },
                 body: JSON.stringify(producto)
             });
@@ -169,7 +170,8 @@ const dispoProducto = async (id) => {
             const response = await fetch('http://localhost:8080/productos/variante', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': "Bearer " + localStorage.getItem('token')
                 },
                 body: JSON.stringify(variante)
             });
@@ -290,7 +292,12 @@ const dispoProducto = async (id) => {
 
     const obtenerCategorias = async () => {
         try {
-            const response = await fetch('http://localhost:8080/productos/categorias');
+            const response = await fetch('http://localhost:8080/productos/categorias',
+                {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') }
+                }
+            );
             const data = await response.json();
             setCategorias(data);
 
