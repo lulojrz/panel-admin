@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'; // Eliminamos 'use' que sobraba
+import React, { useRef, useEffect, useState } from 'react'; 
 import { useAuth } from '../Context/AuthContext';
 import emailjs from '@emailjs/browser';
 import Swal from 'sweetalert2';

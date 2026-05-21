@@ -12,6 +12,7 @@ import Usuarios from './pages/Usuarios';
 import CambioContraseña from './pages/CambioContraseña';
 import CrearUsuario from './pages/CrearUsuario';
 import Perfil from './pages/Perfil';
+import Estadisticas from './pages/Estadisticas';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
       <Route path='/cambio-contraseña' element={<CambioContraseña user={user}/>}/>
       <Route path='/crear-usuario' element={<CrearUsuario user={user}/>}/>
       <Route path='/perfil' element={<Perfil user={user}/>}/>
+      <Route path="/estadisticas" element={<Estadisticas user={user}/>}/>
 
       
 

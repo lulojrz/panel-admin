@@ -19,7 +19,7 @@ const {user,authenticatedUser, setIsAuthenticated, cerrarSesion} = useAuth();
           <Link to="/home" className="nav-link active" aria-current="page">Home</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">Estadisticas</a>
+          <Link to="/estadisticas" className="nav-link">Estadisticas</Link>
         </li>
         <li className="nav-item">
           <Link to="/administracion" className="nav-link">Administracion</Link>

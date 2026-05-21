@@ -10,6 +10,7 @@ export const AdminProvider = ({ children }) => {
     const [variantes, setVariantes] = useState([]);
     const [categorias, setCategorias] = useState([]);
     const [usuarios, setUsuarios] = useState([]);
+     const [ventas, setVentas] = useState([]);
 
     const obtenerUsuarios = async () => {
         try {
@@ -309,11 +310,28 @@ export const AdminProvider = ({ children }) => {
         }
     }
 
+    const obtenerVentas = async()=>{
+        try{
+            const response = await fetch('http://localhost:8080/confirmar/ventasRealizadas',
+                {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') }
+                }
+            );
+            const data = await response.json();
+            setVentas(data);
+               
+        }
+        catch(error){
+            console.error("Error al obtener las ventas:", error);
+        }
+    }
+
 
 
 
     return (
-        <AdminContext.Provider value={{ products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto, actualizarVariante, categorias, setCategorias, obtenerCategorias, agregarProducto, agregarVariante, dispoProducto, obtenerUsuarios, usuarios, setUsuarios, dispoPortada }}>
+        <AdminContext.Provider value={{ products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto, actualizarVariante, categorias, setCategorias, obtenerCategorias, agregarProducto, agregarVariante, dispoProducto, obtenerUsuarios, usuarios, setUsuarios, dispoPortada, obtenerVentas, ventas, setVentas }}>
             {children}
         </AdminContext.Provider>
     )
