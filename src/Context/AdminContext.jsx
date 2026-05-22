@@ -10,7 +10,8 @@ export const AdminProvider = ({ children }) => {
     const [variantes, setVariantes] = useState([]);
     const [categorias, setCategorias] = useState([]);
     const [usuarios, setUsuarios] = useState([]);
-     const [ventas, setVentas] = useState([]);
+    const [ventas, setVentas] = useState([]);
+    const [detallesVenta, setDetallesVenta] = useState([]);
 
     const obtenerUsuarios = async () => {
         try {
@@ -310,8 +311,8 @@ export const AdminProvider = ({ children }) => {
         }
     }
 
-    const obtenerVentas = async()=>{
-        try{
+    const obtenerVentas = async () => {
+        try {
             const response = await fetch('http://localhost:8080/confirmar/ventasRealizadas',
                 {
                     method: 'GET',
@@ -320,10 +321,26 @@ export const AdminProvider = ({ children }) => {
             );
             const data = await response.json();
             setVentas(data);
-               
+
         }
-        catch(error){
+        catch (error) {
             console.error("Error al obtener las ventas:", error);
+        }
+    }
+    const obtenerDetallesVenta = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:8080/confirmar/obtenerDetalles/${id}`,
+                {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') }
+                }
+            );
+            const data = await response.json();
+            setDetallesVenta(data);
+
+        }
+        catch (error) {
+            console.error("Error al obtener los detalles de la venta:", error);
         }
     }
 
@@ -331,10 +348,10 @@ export const AdminProvider = ({ children }) => {
 
 
     return (
-        <AdminContext.Provider value={{ products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto, actualizarVariante, categorias, setCategorias, obtenerCategorias, agregarProducto, agregarVariante, dispoProducto, obtenerUsuarios, usuarios, setUsuarios, dispoPortada, obtenerVentas, ventas, setVentas }}>
-            {children}
-        </AdminContext.Provider>
-    )
-}
+            <AdminContext.Provider value={{ products, setProducts, obtenerProductos, selectedProduct, setSelectedProduct, obtenerProductoPorId, detallesProducto, setDetallesProducto, variantes, setVariantes, actualizarProducto, actualizarVariante, categorias, setCategorias, obtenerCategorias, agregarProducto, agregarVariante, dispoProducto, obtenerUsuarios, usuarios, setUsuarios, dispoPortada, obtenerVentas, ventas, setVentas, obtenerDetallesVenta, detallesVenta, setDetallesVenta }}>
+                {children}
+            </AdminContext.Provider>
+        )
+    }
 
-export const useAdmin = () => useContext(AdminContext);
+    export const useAdmin = () => useContext(AdminContext);
