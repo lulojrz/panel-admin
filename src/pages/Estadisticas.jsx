@@ -35,7 +35,7 @@ const Estadisticas = () => {
                                 ventas.map((venta) => (
                                     <tr key={venta.id}>
                                         <th scope="row">{venta.id}</th>
-                                        <td>{venta.cliente.nombre}</td>
+                                        <td>{venta.cliente.nombre + " " + venta.cliente.apellido}</td>
                                         <td>{new Date(venta.fecha).toLocaleDateString()}</td>
                                         <td>{venta.metodoPago}</td>
                                         <td>${venta.montoTotal}</td>
