@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Modern Dark Mode Palette */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --accent-primary: #3b82f6;
+  --accent-hover: #2563eb;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(30, 41, 59, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+body {
+  font-family: 'Outfit', sans-serif !important;
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  margin: 0;
+  min-height: 100vh;
+  /* Add a subtle gradient background for a more premium feel */
+  background: radial-gradient(circle at top left, #1e293b, #0f172a);
+  background-attachment: fixed;
+}
+
+#layoutAuthentication {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#layoutAuthentication_content {
+  width: 100%;
+}
+
+/* Glassmorphism Overrides for Bootstrap Components */
+.card {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--glass-shadow) !important;
+  border-radius: 16px !important;
+  color: var(--text-primary) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Tables if any */
+.table, .table th, .table td {
+  color: var(--text-primary) !important;
+  --bs-table-color: var(--text-primary) !important;
+  --bs-table-bg: transparent !important;
+}
+
+.table > :not(caption) > * > * {
+  background: transparent !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Fix for any remaining black text on dark backgrounds */
+h1, h2, h3, h4, h5, h6, p, span, div, label {
+  color: inherit;
+}
+
+/* Ensure sweetalert modals have dark background if they inherit body text color, or keep them default */
+.swal2-popup {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+.swal2-title, .swal2-html-container {
+  color: var(--text-primary) !important;
+}
+
+.card-header {
+  background: transparent !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  padding: 1.5rem !important;
+}
+
+.card-body {
+  padding: 2rem !important;
+}
+
+/* Inputs and Forms */
+.form-control {
+  background: rgba(15, 23, 42, 0.6) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+  border-radius: 10px !important;
+  transition: all 0.3s ease !important;
+}
+
+.form-control:focus {
+  background: rgba(15, 23, 42, 0.8) !important;
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25) !important;
+}
+
+.form-floating label {
+  color: var(--text-secondary) !important;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+  color: var(--accent-primary) !important;
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+  background: transparent !important;
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-primary), #60a5fa) !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 0.6rem 1.5rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.5px !important;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4) !important;
+  transition: all 0.3s ease !important;
+  color: white !important;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6) !important;
+  background: linear-gradient(135deg, #2563eb, var(--accent-primary)) !important;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444, #f87171) !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 0.6rem 1.5rem !important;
+  font-weight: 500 !important;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4) !important;
+  transition: all 0.3s ease !important;
+  color: white !important;
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6) !important;
+  background: linear-gradient(135deg, #dc2626, #ef4444) !important;
+}
+
+/* Navbar */
+.navbar {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+  padding: 1rem 2rem !important;
+}
+
+.navbar-brand {
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  color: var(--text-primary) !important;
+}
+
+.nav-link {
+  color: var(--text-secondary) !important;
+  font-weight: 500 !important;
+  transition: color 0.3s ease !important;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--accent-primary) !important;
+}
+
+/* Card Images Fix */
+.card-img-top {
+  border-top-left-radius: 16px !important;
+  border-top-right-radius: 16px !important;
+  padding: 1rem !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  object-fit: contain;
+  height: 200px;
+}
+
+/* Modals */
+.modal-content {
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--glass-border) !important;
+  color: var(--text-primary) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--glass-shadow) !important;
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--border-color) !important;
+}
+
+.btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Active Table Rows */
+.table-info, .table-active {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+  color: var(--text-primary) !important;
+}
+
+.table-info > th, .table-info > td,
+.table-active > th, .table-active > td {
+  background-color: transparent !important;
+  color: var(--text-primary) !important;
+}

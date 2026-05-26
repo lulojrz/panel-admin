@@ -106,7 +106,7 @@ const Usuarios = () => {
             );
           })) : (
             <tr>
-              <td colSpan="5" className="text-center" style={{color:"black",textAlign:"center"}}>No tienes permisos para ver esta información</td>
+              <td colSpan="5" className="text-center" style={{color:"var(--text-secondary)",textAlign:"center", padding: "2rem"}}>No tienes permisos para ver esta información</td>
             </tr>
           )
           }

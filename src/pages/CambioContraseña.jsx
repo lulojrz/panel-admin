@@ -28,11 +28,20 @@ const CambioContraseña = () => {
 
   useEffect(() => {
     if (email && cargando) {
+      console.log("Dirección de email obtenida:", email);
+      
       const SERVICE_ID = 'service_t8gapsf';
       const TEMPLATE_ID = 'template_k8aamis';
       const PUBLIC_KEY = 'LPoEIcBMfiZPyi9KK';
 
-      emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
+      const templateParams = {
+        user_email: email,
+        to_email: email, // Pasamos ambos por si el template usa otra variable
+        user_name: form.current.usuario.value || 'Usuario',
+        reset_link: `http://localhost:3000/reset-password?email=${email}`
+      };
+
+      emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
         .then(() => {
           Swal.fire({
             icon: 'success',
