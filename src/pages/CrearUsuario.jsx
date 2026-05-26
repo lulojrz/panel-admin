@@ -66,7 +66,6 @@ const CrearUsuario = () => {
                             value={usuarioNuevo.rol} 
                             onChange={handleUsuario}
                         >
-                            <option value="USER">User</option>
                             <option value="ADMIN">Admin</option>
                             <option value="EMPLOYEER">Employee</option>
                         </select>
