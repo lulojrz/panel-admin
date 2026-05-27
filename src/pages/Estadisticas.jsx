@@ -79,7 +79,7 @@ const Estadisticas = () => {
             {/* Cambiado a flex-column y dadas márgenes y padding para un diseño limpio hacia abajo */}
             <div className="d-flex flex-column align-items-center mt-5 px-4">
                 {/* Panel de Filtros */}
-                <div className="w-100 mb-4 p-3 border rounded shadow-sm bg-light">
+                <div className="w-100 mb-4 p-3 card shadow-sm">
                     <h5 className="mb-3">Filtrar Ventas</h5>
                     <div className="row g-3">
                         <div className="col-md-3">
@@ -114,7 +114,7 @@ const Estadisticas = () => {
                     <div className="row w-100 mb-4">
                         {/* Gráfico de Ventas en el tiempo */}
                         <div className="col-lg-8 col-md-12 mb-3">
-                            <div className="p-3 border rounded shadow-sm bg-light h-100">
+                            <div className="p-3 card shadow-sm h-100">
                                 <h5 className="mb-3 text-center">Ingresos a lo Largo del Tiempo</h5>
                                 <div style={{ width: '100%', height: 300 }}>
                                     <ResponsiveContainer>
@@ -133,7 +133,7 @@ const Estadisticas = () => {
 
                         {/* Gráfico de Métodos de Pago */}
                         <div className="col-lg-4 col-md-12 mb-3">
-                            <div className="p-3 border rounded shadow-sm bg-light h-100 d-flex flex-column align-items-center">
+                            <div className="p-3 card shadow-sm h-100 d-flex flex-column align-items-center">
                                 <h5 className="mb-3 text-center">Métodos de Pago Utilizados</h5>
                                 <div style={{ width: '100%', height: 300 }}>
                                     <ResponsiveContainer>

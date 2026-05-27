@@ -75,7 +75,7 @@ const Administracion = ({user}) => {
         selectedProduct && (
           <form
             action=""
-            className='mb-3 p-4 border rounded shadow-sm bg-light'
+            className='mb-3 p-4 card shadow-sm'
             id='formulario-edicion'
             onSubmit={(e) => { e.preventDefault(); actualizarProducto(selectedProduct.id) }}
           >
@@ -135,7 +135,7 @@ const Administracion = ({user}) => {
             return (
               <form
                 action=""
-                className='mb-3 p-4 border rounded shadow-sm bg-light'
+                className='mb-3 p-4 card shadow-sm'
                 id='formulario-edicion'
                 onSubmit={(e) => { e.preventDefault(); actualizarVariante(variante.id) }}
                 key={variante.id}

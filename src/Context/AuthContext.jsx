@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
     const encontrarUsuario = async (usuario) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/find/usuarios`, {
+            const response = await fetch(`\${import.meta.env.VITE_API_URL}/api/find/usuarios`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ usuario: usuario })
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
 
     const crearUsuario= async (usuarioNuevo) => {
       try{
-        const response = await fetch("http://localhost:8080/api/registro",
+        const response = await fetch(`\${import.meta.env.VITE_API_URL}/api/registro`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' , 'Authorization': "Bearer " + localStorage.getItem('token')},
@@ -91,7 +91,7 @@ export const AuthProvider = ({ children }) => {
 
     const obtenerInformacionUsuario = async (usuario) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/find/usuarios`, {
+            const response = await fetch(`\${import.meta.env.VITE_API_URL}/api/find/usuarios`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ usuario: usuario })
@@ -131,7 +131,7 @@ export const AuthProvider = ({ children }) => {
         if (!id) return;
 
         try {
-            const response = await fetch(`http://localhost:8080/api/verificacion/${id}`, {
+            const response = await fetch(`\${import.meta.env.VITE_API_URL}/api/verificacion/${id}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') },
                 body: JSON.stringify({ password: passwordInput })
@@ -177,11 +177,12 @@ export const AuthProvider = ({ children }) => {
         console.log(body);
 
         try {
-            const url = `http://localhost:8080/api/editar/usuario/${id}`;
+            const url = `\${import.meta.env.VITE_API_URL}/api/editar/usuario/${id}`;
             const response = await fetch(url, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': "Bearer " + localStorage.getItem('token')
                 },
                 body: JSON.stringify(body)
             });
@@ -189,18 +190,18 @@ export const AuthProvider = ({ children }) => {
             if (response.ok) {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Contraseña actualizada',
-                    text: 'La contraseña ha sido actualizada correctamente.'
+                    title: 'Perfil actualizado',
+                    text: 'El perfil se ha actualizado correctamente.'
                 });
+                return true;
             } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'No se pudo actualizar la contraseña.'
+                    text: 'No se pudo actualizar el perfil.'
                 });
+                return false;
             }
-
-
         }
         catch (error) {
             console.error("Error en la petición:", error);
@@ -209,10 +210,8 @@ export const AuthProvider = ({ children }) => {
                 title: 'Error de conexión',
                 text: 'No se pudo conectar con el servidor.'
             });
+            return false;
         }
-
-
-
     }
 
 
@@ -239,7 +238,7 @@ export const AuthProvider = ({ children }) => {
 
 
         try {
-            const response = await fetch('http://localhost:8080/api/login', {
+            const response = await fetch(`\${import.meta.env.VITE_API_URL}/api/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -292,7 +291,7 @@ export const AuthProvider = ({ children }) => {
 
     const eliminarUsuario = async (id) => {
         try {
-            const response = await fetch (`http://localhost:8080/api/eliminar/${id}`, {
+            const response = await fetch (`\${import.meta.env.VITE_API_URL}/api/eliminar/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

@@ -73,11 +73,12 @@ const handleGuardarCambios = async (e) => {
         password: passwordAEnviar 
     };
 
-    await  editarUsuario(infoUsuario.id, bodyParaEnviar);
-    setTimeout(() => {
-      Navigate(0);
-    }, 3000);
-    
+    const exito = await editarUsuario(infoUsuario.id, bodyParaEnviar);
+    if (exito) {
+      setTimeout(() => {
+        Navigate(0);
+      }, 1500);
+    }
 };
   // 6. El RETURN debe estar SIEMPRE dentro de las llaves de 'Perfil'
   return (
@@ -164,7 +165,7 @@ const handleGuardarCambios = async (e) => {
               </div>
 
               {permiso && (
-                <div className="bg-light p-3 rounded mt-3 border">
+                <div className="card p-3 rounded mt-3 shadow-sm">
                   <label className="form-label small fw-bold">Nueva Contraseña</label>
                   <input type="password" title="new1" className="form-control mb-2" placeholder="Escribe la nueva clave"
                     onChange={(e) => setPass1(e.target.value)} />

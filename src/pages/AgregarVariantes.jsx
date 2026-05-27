@@ -46,7 +46,7 @@ const AgregarVariantes = ({ user }) => {
             <Header user={user} />
             <Link to="/administracion">Volver a Admin</Link>
 
-            <form action="" className='mb-3 p-4 border rounded shadow-sm bg-light' onSubmit={(e) => {
+            <form action="" className='mb-3 p-4 card shadow-sm' onSubmit={(e) => {
                 e.preventDefault();
                 agregarVariante(variante);
             }} >

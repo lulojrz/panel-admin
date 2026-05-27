@@ -54,7 +54,7 @@ return (
      
     </div>
     <h1 className='text-center mt-5'>Agregar Producto</h1>
-    <form action="" className='mb-3 p-4 border rounded shadow-sm bg-light' onSubmit={(e) => { e.preventDefault(); agregarProducto(producto) }}>
+    <form action="" className='mb-3 p-4 card shadow-sm' onSubmit={(e) => { e.preventDefault(); agregarProducto(producto) }}>
       <div className="mb-3">
         <label htmlFor="nombre" className="form-label">Nombre del Producto</label>
         <input type="text" className="form-control" id="nombre" placeholder="Ingrese el nombre del producto" name='nombre' onChange={handleChange}/>
