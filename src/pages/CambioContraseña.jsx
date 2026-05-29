@@ -28,7 +28,6 @@ const CambioContraseña = () => {
 
   useEffect(() => {
     if (email && cargando) {
-      console.log("Dirección de email obtenida:", email);
       
       const SERVICE_ID = 'service_t8gapsf';
       const TEMPLATE_ID = 'template_k8aamis';

@@ -15,7 +15,7 @@ export const AdminProvider = ({ children }) => {
 
     const obtenerUsuarios = async () => {
         try {
-            const response = await fetch(`\${import.meta.env.VITE_API_URL}/api/usuarios`,
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/usuarios`,
                 {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') }
@@ -48,7 +48,7 @@ export const AdminProvider = ({ children }) => {
 
         try {
 
-            const response = await fetch(`\${import.meta.env.VITE_API_URL}/productos/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/productos/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') },
                 body: JSON.stringify(productoActualizado)
@@ -91,7 +91,7 @@ export const AdminProvider = ({ children }) => {
 
         try {
 
-            const response = await fetch(`\${import.meta.env.VITE_API_URL}/productos/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/productos/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') },
                 body: JSON.stringify(productoActualizado)
@@ -125,7 +125,7 @@ export const AdminProvider = ({ children }) => {
 
     const obtenerProductos = async () => {
         try {
-            const response = await fetch(`\${import.meta.env.VITE_API_URL}/productos`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/productos`);
             const data = await response.json();
             setProducts(data);
         }
@@ -135,7 +135,7 @@ export const AdminProvider = ({ children }) => {
     }
     const agregarProducto = async (producto) => {
         try {
-            const response = await fetch(`\${import.meta.env.VITE_API_URL}/productos`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/productos`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -169,7 +169,7 @@ export const AdminProvider = ({ children }) => {
 
     const agregarVariante = async (variante) => {
         try {
-            const response = await fetch(`\${import.meta.env.VITE_API_URL}/productos/variante`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/productos/variante`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -202,7 +202,7 @@ export const AdminProvider = ({ children }) => {
 
     const obtenerProductoPorId = async (id) => {
         try {
-            const response = await fetch(`\${import.meta.env.VITE_API_URL}/productos/${id}`,
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/productos/${id}`,
                 {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') }
@@ -223,7 +223,7 @@ export const AdminProvider = ({ children }) => {
 
     const actualizarProducto = async (id) => {
         try {
-            const response = await fetch(`\${import.meta.env.VITE_API_URL}/productos/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/productos/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -257,7 +257,7 @@ export const AdminProvider = ({ children }) => {
     }
     const actualizarVariante = async (id) => {
         try {
-            const response = await fetch(`\${import.meta.env.VITE_API_URL}/productos/variante/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/productos/variante/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -294,7 +294,7 @@ export const AdminProvider = ({ children }) => {
 
     const obtenerCategorias = async () => {
         try {
-            const response = await fetch(`\${import.meta.env.VITE_API_URL}/productos/categorias`,
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/productos/categorias`,
                 {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') }
@@ -313,7 +313,7 @@ export const AdminProvider = ({ children }) => {
 
     const obtenerVentas = async () => {
         try {
-            const response = await fetch(`\${import.meta.env.VITE_API_URL}/confirmar/ventasRealizadas`,
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/confirmar/ventasRealizadas`,
                 {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') }
@@ -329,7 +329,7 @@ export const AdminProvider = ({ children }) => {
     }
     const obtenerDetallesVenta = async (id) => {
         try {
-            const response = await fetch(`\${import.meta.env.VITE_API_URL}/confirmar/obtenerDetalles/${id}`,
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/confirmar/obtenerDetalles/${id}`,
                 {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') }

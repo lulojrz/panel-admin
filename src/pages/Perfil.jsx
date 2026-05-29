@@ -55,7 +55,6 @@ const handleGuardarCambios = async (e) => {
    
     if (!usuarioActual.nombre || !usuarioActual.email) {
         Swal.fire("Error", "Los datos del usuario no se han cargado correctamente.", "warning");
-        console.log("Usuario actual:", usuarioActual);
 
         return;
     }

@@ -28,7 +28,9 @@ const {user,authenticatedUser, setIsAuthenticated, cerrarSesion} = useAuth();
            <Link to="/usuarios" className="nav-link">Usuarios</Link>
           </li>
         <div>
-            <span><i className="fa-solid fa-circle-user" ></i> {localStorage.getItem('user') || "Usuario"}</span>
+            <Link to="/perfil" className="text-white text-decoration-none" style={{ cursor: 'pointer' }}>
+              <span><i className="fa-solid fa-circle-user" ></i> {localStorage.getItem('user') || "Usuario"}</span>
+            </Link>
             <hr />
             <button className="btn btn-danger" onClick={() => cerrarSesion()}>Cerrar Sesión</button>
         </div>

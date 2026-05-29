@@ -30,12 +30,12 @@ export const AuthProvider = ({ children }) => {
     }
 
 
-    const encontrarUsuario = async (usuario) => {
+    const encontrarUsuario = async (value) => {
         try {
-            const response = await fetch(`\${import.meta.env.VITE_API_URL}/api/find/usuarios`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/find/usuarios`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ usuario: usuario })
+                body: JSON.stringify({ usuario: value }) // La clave DEBE ser "usuario"
             });
             const data_usuarios = await response.json();
             setEmail(data_usuarios.email);
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
 
     const crearUsuario= async (usuarioNuevo) => {
       try{
-        const response = await fetch(`\${import.meta.env.VITE_API_URL}/api/registro`,
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/registro`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' , 'Authorization': "Bearer " + localStorage.getItem('token')},
@@ -91,7 +91,7 @@ export const AuthProvider = ({ children }) => {
 
     const obtenerInformacionUsuario = async (usuario) => {
         try {
-            const response = await fetch(`\${import.meta.env.VITE_API_URL}/api/find/usuarios`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/find/usuarios`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ usuario: usuario })
@@ -131,7 +131,7 @@ export const AuthProvider = ({ children }) => {
         if (!id) return;
 
         try {
-            const response = await fetch(`\${import.meta.env.VITE_API_URL}/api/verificacion/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/verificacion/${id}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage.getItem('token') },
                 body: JSON.stringify({ password: passwordInput })
@@ -174,10 +174,9 @@ export const AuthProvider = ({ children }) => {
     }
 
     const editarUsuario = async (id, body) => {
-        console.log(body);
 
         try {
-            const url = `\${import.meta.env.VITE_API_URL}/api/editar/usuario/${id}`;
+            const url = `${import.meta.env.VITE_API_URL}/api/editar/usuario/${id}`;
             const response = await fetch(url, {
                 method: 'PUT',
                 headers: {
@@ -238,7 +237,7 @@ export const AuthProvider = ({ children }) => {
 
 
         try {
-            const response = await fetch(`\${import.meta.env.VITE_API_URL}/api/login`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -291,7 +290,7 @@ export const AuthProvider = ({ children }) => {
 
     const eliminarUsuario = async (id) => {
         try {
-            const response = await fetch (`\${import.meta.env.VITE_API_URL}/api/eliminar/${id}`, {
+            const response = await fetch (`${import.meta.env.VITE_API_URL}/api/eliminar/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
